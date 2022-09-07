@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "d977d8ab-a9fd-4b8c-9e0e-72cc1546f7c1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 50,
+  "height": 53,
+  "platformSettings": {},
+  "subMetas": {
+    "icon_A2HS_howtoplay": {
+      "ver": "1.0.4",
+      "uuid": "0cd4d460-bfc9-4c51-ba30-648778e04e32",
+      "rawTextureUuid": "d977d8ab-a9fd-4b8c-9e0e-72cc1546f7c1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 1.5,
+      "trimX": 11,
+      "trimY": 3,
+      "width": 28,
+      "height": 44,
+      "rawWidth": 50,
+      "rawHeight": 53,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

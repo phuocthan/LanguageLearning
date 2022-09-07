@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "e4fe9fb5-b21d-436e-b8c4-19a7f7feae6d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 460,
+  "height": 133,
+  "platformSettings": {},
+  "subMetas": {
+    "how_to_Firefox_3": {
+      "ver": "1.0.4",
+      "uuid": "5842ff1e-2ca1-4a80-96cf-75e7865a5fce",
+      "rawTextureUuid": "e4fe9fb5-b21d-436e-b8c4-19a7f7feae6d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 460,
+      "height": 133,
+      "rawWidth": 460,
+      "rawHeight": 133,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

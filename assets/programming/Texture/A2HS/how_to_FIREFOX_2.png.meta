@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "15b62f94-a924-420b-97fe-cb24695a206a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 32,
+  "height": 45,
+  "platformSettings": {},
+  "subMetas": {
+    "how_to_FIREFOX_2": {
+      "ver": "1.0.4",
+      "uuid": "569574da-45d8-49bd-ae97-b49954221b2a",
+      "rawTextureUuid": "15b62f94-a924-420b-97fe-cb24695a206a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 32,
+      "height": 45,
+      "rawWidth": 32,
+      "rawHeight": 45,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
