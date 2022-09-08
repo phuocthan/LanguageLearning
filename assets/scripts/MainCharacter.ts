@@ -20,11 +20,13 @@ export default class MainCharacter extends CharacterBase {
         console.log("collected npc ", npc);
         EventManager.getInstance().emit(EventType.MEET_NPC, {npcType: npc.ngcType})
         this.setWaittingStatus(true);
+        // this.moveAnim.stop();
           
     }
 
     onLoad() {
         super.onLoad();
+        // this.moveAnim.stop();
         cc.systemEvent.on(EventType.MEET_END, this.onMeetEnd.bind(this), this)
     }
 

@@ -18,6 +18,9 @@ export default class CharacterBase extends cc.Component {
 
     isLocalPlayer: boolean = true;
 
+    @property(cc.Animation)
+    moveAnim = cc.Animation = null;
+
     onLoad(){
         if(this.isLocalPlayer){
             cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP,  this.onKeyUp, this);
@@ -25,35 +28,58 @@ export default class CharacterBase extends cc.Component {
         }
     }
 
-    onKeyUp(event) {
-        // Reset Action when key up ANY KEY
+    stopMove() {
         this.action_move = this.IDLE;
     }
 
-    onKeyDown(event) {
+    moveLeft() {
+        this.action_move = this.MOVE_LEFT;
+        this.node.scaleX = Math.abs(this.node.scale) * -1;
+    }
+    
+    moveRight() {
+        this.action_move = this.MOVE_RIGHT;
+        this.node.scaleX = Math.abs(this.node.scale);
+    }
 
+    moveDown() {
+        this.action_move = this.MOVE_DOWN;
+    }
+
+    moveUp() {
+        this.action_move = this.MOVE_UP;
+    }
+
+    onKeyUp(event) {
+        // Reset Action when key up ANY KEY
+        this.action_move = this.IDLE;
+        // this.moveAnim.stop();
+    }
+
+    onKeyDown(event) {
+        // if ( this.action_move !== this.IDLE) {
+            // this.moveAnim.play();
+        // }
         switch(event.keyCode)
         {
           case cc.macro.KEY.left:
           case cc.macro.KEY.a:
-              this.action_move = this.MOVE_LEFT;
-              this.node.scaleX = Math.abs(this.node.scale) * -1;
+              this.moveLeft()
               break;
   
           case cc.macro.KEY.right:
           case cc.macro.KEY.d:
-            this.action_move = this.MOVE_RIGHT;
-            this.node.scaleX = Math.abs(this.node.scale);
+            this.moveRight()
               break;            
   
           case cc.macro.KEY.up:
           case cc.macro.KEY.w:
-            this.action_move = this.MOVE_UP;
+            this.moveUp();
               break;            
   
           case cc.macro.KEY.down:
           case cc.macro.KEY.s:
-            this.action_move = this.MOVE_DOWN;
+            this.moveDown();
               break;            
         }
     }
@@ -92,6 +118,10 @@ export default class CharacterBase extends cc.Component {
             newPosY -= this.moveDistance * dt;
             // console.log("Update MOVE MOVE_DOWN");
         }
+
+        // if ( this.action_move !== this.IDLE) {
+        //     this.moveAnim.play();
+        // }
 
         newPosX = cc.misc.clampf(newPosX, -2250/2 + 50, 2250/2 - 50);
         newPosY = cc.misc.clampf(newPosY, -1380/2  + 50, 1380/2 -50);
