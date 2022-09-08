@@ -1,6 +1,6 @@
 import ScreenBase, { SCREEN_ID } from "./ScreenBase";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class ScreenManager extends cc.Component {
@@ -26,30 +26,29 @@ export default class ScreenManager extends cc.Component {
         })
     }
 
-    showScreen( screen: SCREEN_ID, force = false) {
+    showScreen(screen: SCREEN_ID, force = false) {
         this.trans.opacity = 0;
         this.trans.active = true;
         const showFnc = () => {
             this.screenList.forEach((s, i) => {
-                // console.log('@@@@ s ',s)
-                if(s) {
+                if (s) {
                     if (i === screen) {
-                        s.active = true;       
+                        s.active = true;
                         s.getComponent(ScreenBase).show();
                     } else {
                         s.getComponent(ScreenBase).hide();
-                        s.active = false;    
+                        s.active = false;
                     }
                 }
             })
         }
-        if ( force ) {
+        if (force) {
             showFnc();
             return;
         }
         cc.tween(this.trans)
-        .to( 0.5, {opacity: 255}).call( () => showFnc())
-        .to( 0.5, {opacity: 0}).call(() => this.trans.active = false)
-        .start();
+            .to(0.5, { opacity: 255 }).call(() => showFnc())
+            .to(0.5, { opacity: 0 }).call(() => this.trans.active = false)
+            .start();
     }
 }

@@ -1,7 +1,7 @@
-import { EventType } from "./EventManager";
+// import { EventType } from "./EventManager";
 import MainCharacter from "./MainCharacter";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class PlayerTouchManager extends cc.Component {
@@ -11,11 +11,12 @@ export default class PlayerTouchManager extends cc.Component {
 
     @property(cc.Node)
     dpad: cc.Node = null;
-    public static _inst: PlayerTouchManager = null;
-    @property(cc.Sprite)
-    touchSpriteNode: cc.Sprite[]  = []
 
-    
+    @property(cc.Sprite)
+    touchSpriteNode: cc.Sprite[] = []
+
+    public static _inst: PlayerTouchManager = null;
+
     onLoad() {
         PlayerTouchManager._inst = this;
         this.dpad.on(cc.Node.EventType.TOUCH_START, this._onTouchStart.bind(this), this);
@@ -23,11 +24,11 @@ export default class PlayerTouchManager extends cc.Component {
         this.dpad.on(cc.Node.EventType.TOUCH_END, this._onTouchEnd.bind(this), this);
     }
 
-    startPos : any;
-    curPos : any;
+    startPos: cc.Vec2;
+    curPos: cc.Vec2;
 
     unHighlightAll() {
-        this.touchSpriteNode.forEach( spr => {
+        this.touchSpriteNode.forEach(spr => {
             spr.enabled = false;
         })
     }
@@ -38,17 +39,16 @@ export default class PlayerTouchManager extends cc.Component {
         this.touchSpriteNode.forEach((spr, i) => {
             const wPosRect = spr.node.getBoundingBoxToWorld();
             const isTouched = wPosRect.contains(localPos);
-            if ( isTouched) {
-                console.log( '@@@@ isTouched ', i)
+            if (isTouched) {
                 moveDir = i;
             }
         })
-        if ( moveDir === - 1) {
+        if (moveDir === - 1) {
             return;
         }
         this.touchSpriteNode[moveDir].enabled = true;
         this.startPos = localPos;
-        switch(moveDir) {
+        switch (moveDir) {
             case 0:
                 this.mainChar.moveLeft();
                 break;
@@ -65,23 +65,12 @@ export default class PlayerTouchManager extends cc.Component {
                 this.mainChar.stopMove();
                 break;
         }
-        // this.mainChar.moveLeft();
     }
+
     _onTouchMove(event: cc.Touch) {
-        // this.curPos =this.startPos;
-        // // this.curPos = this.curPos || this.startPos;
-        // const localPos = event.getLocation();
-        // let distanceX = localPos.x - this.curPos.y;
-        // let distanceY = localPos.y - this.curPos.y
-        // if (Math.abs(distanceX) > Math.abs(distanceY)) {
-        //     distanceX >= 0 ? this.mainChar.moveRight() : this.mainChar.moveLeft();
-        // } else {
-        //     distanceY >= 0 ? this.mainChar.moveUp() : this.mainChar.moveDown();
-        // }
-        // this.curPos = localPos;
     }
+
     _onTouchEnd(event: cc.Touch) {
-        const localPos = event.getLocation();
         this.mainChar.stopMove();
         this.unHighlightAll();
     }

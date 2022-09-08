@@ -7,13 +7,12 @@ export enum SCREEN_ID {
 
 @ccclass
 export default class ScreenBase extends cc.Component {
-    // @property(typeof)
-    // screenID: SCREEN_ID = null;
-    show() {
 
+    show() {
+        // do something later
     }
 
     hide() {
-
+        // do something later
     }
 }

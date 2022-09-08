@@ -3,6 +3,7 @@ import CharacterBase from "./Character/CharacterBase";
 import DialogManager from "./DialogManager";
 import { EventType } from "./EventManager";
 import GameCamera from "./GameCamera";
+import { GAME_CONFIG } from "./GameDefs";
 import NPCManager from "./NPCManager";
 import ScreenBase, { SCREEN_ID } from "./ScreenBase";
 import ScreenManager from "./ScreenManager";
@@ -43,13 +44,9 @@ export default class GamePlayManager extends ScreenBase {
     onLoad() {
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        // manager.enabledDebugDraw = true;
-        // manager.enabledDrawBoundingBox = true;
-        // this.starNewGame();
         cc.systemEvent.on(EventType.MEET_NPC, this.onMeetNPC.bind(this), this)
         cc.systemEvent.on(EventType.MEET_END, this.onMeetEndNPC.bind(this), this)
         cc.systemEvent.on(EventType.SEND_RESULT, this.onReceivedResult.bind(this), this)
-
     }
 
     show(): void {
@@ -59,10 +56,9 @@ export default class GamePlayManager extends ScreenBase {
 
     onReceivedResult(data) {
         const isCorrect = data.detail.result;
-        console.log('onReceivedResult ', data)
         cc.systemEvent.emit(EventType.MEET_END);
         if (isCorrect) {
-            this.updatePoints(10);
+            this.updatePoints(GAME_CONFIG.CORRECT_ANSWER_POINT);
         }
     }
 
@@ -92,11 +88,9 @@ export default class GamePlayManager extends ScreenBase {
     isMeetRed = false;
     pauseTimer = false;
     onMeetNPC(npc) {
-        console.log('@@@@ onMeetNPC ', npc)
         this.isMeetRed = npc.detail.npcType === 'Red';
         this.showAskHelp(this.isMeetRed);
         this.pauseTimer = true;
-        // GameCamera._inst.focusOn(cc.v2(this.mainChar.x/2 + this.curNPC.node.x/2, this.mainChar.y/2 + this.curNPC.node.y/2))
     }
 
     showAskHelp(isMeetRed) {
@@ -109,7 +103,6 @@ export default class GamePlayManager extends ScreenBase {
         this.dialogNode.removeFromParent();
         this.dialogNode = cc.instantiate(this.dialogPrefab);
         this.dialogNode.parent = this.node;
-        // this.dialogNode.parent.active = true;
         this.dialogNode.active = true;
         this.dialogNode.getComponent(DialogManager).show(this.isMeetRed)
     }
@@ -121,22 +114,19 @@ export default class GamePlayManager extends ScreenBase {
         }
         let rand = Utils.randomRange(0, this.NPCPrefab.length - 1, true);
         let newPNC = cc.instantiate(this.NPCPrefab[rand]);
-        // this.node.addChild(newPNC, this.mainChar.getSiblingIndex());
         newPNC.parent = this.node.getChildByName('NPC');
         this.curNPC = newPNC.getComponent(NPCManager);
         let pickedNPC = false
         let newPosX;
         let newPosY;
-        // random pos
+        // random pos and keep distance with mainChar
         while (!pickedNPC) {
-            newPosX = Utils.randomRange(-2250 / 2 + 50, 2250 / 2 - 50)
-            newPosY = Utils.randomRange(-1380 / 2 + 50, 1380 / 2 - 50)
-            if (Math.abs(newPosX - this.mainChar.x) / 2 > 500) {
+            newPosX = Utils.randomRange( -GAME_CONFIG.MAP_WIDTH / 2 + 50, GAME_CONFIG.MAP_WIDTH / 2 - 50)
+            newPosY = Utils.randomRange( -GAME_CONFIG.MAP_HEIGHT/ 2 + 50, GAME_CONFIG.MAP_HEIGHT / 2 - 50)
+            if (Math.abs(newPosX - this.mainChar.x) / 2 > GAME_CONFIG.MIN_DISTANCE_ALLOW) {
                 pickedNPC = true;
             }
         }
-        // let newPosX = Utils.randomRange(-2250/2 + 50, 2250/2 - 50)
-        // let newPosY = Utils.randomRange(-1380/2 + 50, 1380/2 - 50)
         newPNC.setPosition(newPosX, newPosY);
         newPNC.opacity = 0;
         cc.tween(newPNC)
@@ -150,17 +140,18 @@ export default class GamePlayManager extends ScreenBase {
         this.spawnNPC();
         this.updatePointText();
         this.startTimer = Date.now();
-        this.endTimer = Date.now() + 30000;
+        this.endTimer = Date.now() + GAME_CONFIG.GAME_DURATION_TIME;
         this.isGameOver = false;
+        this.mainChar.setPosition(0, 0);
     }
 
     updateTimer() {
-        
-        let remainTime =  Math.floor((this.endTimer - this.startTimer)/1000);
+
+        let remainTime = Math.floor((this.endTimer - this.startTimer) / 1000);
         if (remainTime < 0) {
             remainTime = 0;
         }
-        this.timerLabel.string = '' +  remainTime;
+        this.timerLabel.string = '' + remainTime;
     }
 
     gameOver() {
@@ -174,7 +165,7 @@ export default class GamePlayManager extends ScreenBase {
             return;
         }
         this.startTimer += dt * 1000;
-        
+
         this.updateTimer();
         if (this.startTimer >= this.endTimer) {
             this.isGameOver = true;

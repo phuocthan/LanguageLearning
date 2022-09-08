@@ -9,8 +9,8 @@ export enum EventType {
 
 @ccclass
 export default class EventManager extends cc.Component {
-  private static _ist : EventManager = null;
-  public static getInstance() : EventManager {
+  private static _ist: EventManager = null;
+  public static getInstance(): EventManager {
     return EventManager._ist
   }
   protected onLoad(): void {
@@ -22,5 +22,5 @@ export default class EventManager extends cc.Component {
     e.detail = param;
     cc.systemEvent.dispatchEvent(e);
   }
-  
+
 }

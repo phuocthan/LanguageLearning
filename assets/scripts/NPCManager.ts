@@ -11,7 +11,8 @@ export default class NPCManager extends CharacterBase {
     ngcType = '';
 
     onLoad() {
-        this.type = this.ngcType
+        this.type = this.ngcType;
+        super.onLoad();
     }
 
     isLocalPlayer: boolean = false;

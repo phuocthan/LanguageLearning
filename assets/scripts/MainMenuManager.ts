@@ -3,7 +3,7 @@ import ScreenManager from "./ScreenManager";
 import SoundManager from "./Sound/SoundManager";
 import { UserInfo } from "./UserInfo";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class MainMenuManager extends ScreenBase {
@@ -29,12 +29,11 @@ export default class MainMenuManager extends ScreenBase {
 
     show() {
         this.loadSaveProfile();
-        console.log('@@@@ MainMenuManager showw')
     }
 
     onPlayGameBtnClick() {
         ScreenManager._inst.showScreen(SCREEN_ID.GAMEPLAY);
         SoundManager.inst.playClickSFX();
-       
+
     }
 }
