@@ -31,12 +31,15 @@ export default class ScreenManager extends cc.Component {
         this.trans.active = true;
         const showFnc = () => {
             this.screenList.forEach((s, i) => {
-                if (i === screen) {
-                    s.active = true;       
-                    s.getComponent(ScreenBase).show();
-                } else {
-                    s.getComponent(ScreenBase).hide();
-                    s.active = false;    
+                // console.log('@@@@ s ',s)
+                if(s) {
+                    if (i === screen) {
+                        s.active = true;       
+                        s.getComponent(ScreenBase).show();
+                    } else {
+                        s.getComponent(ScreenBase).hide();
+                        s.active = false;    
+                    }
                 }
             })
         }

@@ -1,4 +1,5 @@
 import EventManager, { EventType } from "./EventManager";
+import SoundManager from "./Sound/SoundManager";
 import { UserInfo } from "./UserInfo";
 
 const {ccclass, property} = cc._decorator;
@@ -71,6 +72,7 @@ export default class DialogManager extends cc.Component {
         if (this.pickedAnswer) {
             return;
         }
+        SoundManager.inst.playClickSFX();
         const index = parseInt(customEvent);
         this.answerSprs[index].enabled = true;
         this.pickedAnswer = true;
@@ -91,6 +93,9 @@ export default class DialogManager extends cc.Component {
         this.askHelp.string = isCorrect? '<color=#000000>Thank you so much!</c>' : '<color=#000000>Ops, wrong anwser, please try again!</c>'
         if ( isCorrect) {
             this.addPoints.active = true;
+            SoundManager.inst.playCorrect();
+        } else {
+            SoundManager.inst.playInCorrect();
         }
         setTimeout( () => {
             this.sendResult(isCorrect)

@@ -1,4 +1,5 @@
 import { EventType } from "./EventManager";
+import SoundManager from "./Sound/SoundManager";
 import { UserInfo } from "./UserInfo";
 
 const {ccclass, property} = cc._decorator;
@@ -28,11 +29,13 @@ export default class AskForHelp extends cc.Component {
 
     onYesBtnClick() {
         this.yesFnc && this.yesFnc();
+        SoundManager.inst.playClickSFX();
     }
 
     onNoBtnClick() {
         this.node.active = false;
         cc.systemEvent.emit(EventType.MEET_END);
+        SoundManager.inst.playClickSFX();
     }
 
     start () {

@@ -4,7 +4,8 @@ import DialogManager from "./DialogManager";
 import { EventType } from "./EventManager";
 import GameCamera from "./GameCamera";
 import NPCManager from "./NPCManager";
-import ScreenBase from "./ScreenBase";
+import ScreenBase, { SCREEN_ID } from "./ScreenBase";
+import ScreenManager from "./ScreenManager";
 import { UserInfo } from "./UserInfo";
 import { Utils } from "./Utils";
 
@@ -44,11 +45,15 @@ export default class GamePlayManager extends ScreenBase {
         manager.enabled = true;
         // manager.enabledDebugDraw = true;
         // manager.enabledDrawBoundingBox = true;
-        this.starNewGame();
+        // this.starNewGame();
         cc.systemEvent.on(EventType.MEET_NPC, this.onMeetNPC.bind(this), this)
         cc.systemEvent.on(EventType.MEET_END, this.onMeetEndNPC.bind(this), this)
         cc.systemEvent.on(EventType.SEND_RESULT, this.onReceivedResult.bind(this), this)
 
+    }
+
+    show(): void {
+        this.starNewGame();
     }
 
 
@@ -146,6 +151,7 @@ export default class GamePlayManager extends ScreenBase {
         this.updatePointText();
         this.startTimer = Date.now();
         this.endTimer = Date.now() + 30000;
+        this.isGameOver = false;
     }
 
     updateTimer() {
@@ -157,15 +163,22 @@ export default class GamePlayManager extends ScreenBase {
         this.timerLabel.string = '' +  remainTime;
     }
 
+    gameOver() {
+        UserInfo.lastScore = this.curPoints;
+        ScreenManager._inst.showScreen(SCREEN_ID.GAMEOVER);
+    }
+
+    isGameOver = false;
     update(dt) {
-        if (this.pauseTimer) {
+        if (this.pauseTimer || this.isGameOver) {
             return;
         }
         this.startTimer += dt * 1000;
         
         this.updateTimer();
         if (this.startTimer >= this.endTimer) {
-            
+            this.isGameOver = true;
+            this.gameOver();
         }
     }
 }

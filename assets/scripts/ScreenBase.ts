@@ -2,6 +2,7 @@ const {ccclass, property} = cc._decorator;
 export enum SCREEN_ID {
     MAINMENU,
     GAMEPLAY,
+    GAMEOVER,
 }
 
 @ccclass

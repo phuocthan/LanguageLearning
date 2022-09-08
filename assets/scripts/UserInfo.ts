@@ -48,5 +48,17 @@ export class UserInfo {
         UserInfo.setKey('_bestScore', value);
         UserInfo._bestScore = value;
     }
+
+    private static _lastScore = 0;
+    public static get lastScore() {
+        if (UserInfo._lastScore === 0) {
+            UserInfo._lastScore = UserInfo.getKey('_lastScore', 0)
+        }
+        return UserInfo._lastScore;
+    }
+    public static set lastScore(value) {
+        UserInfo.setKey('_lastScore', value);
+        UserInfo._lastScore = value;
+    }
     
 }
