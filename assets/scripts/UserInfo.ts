@@ -20,9 +20,9 @@ export class UserInfo {
 
     private static _userName = '';
     public static get userName(): string {
-        if ( !!UserInfo._userName) {
-            return UserInfo.userName;
-        }
+        // if ( !!UserInfo._userName) {
+        //     return UserInfo.userName;
+        // }
         let name = '';
         try {
             name = UserInfo.getKey('userName', '');

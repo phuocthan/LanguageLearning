@@ -188,16 +188,6 @@
     "sync": false
   },
   {
-    "__type__": "f93f503felBPIbBURzgIGD7",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_id": ""
-  },
-  {
     "__type__": "cc.CircleCollider",
     "_name": "",
     "_objFlags": 0,
@@ -211,7 +201,17 @@
       "x": 0,
       "y": 0
     },
-    "_radius": 150,
+    "_radius": 100,
+    "_id": ""
+  },
+  {
+    "__type__": "125726mkRJMhY/jrEXqVobT",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
     "_id": ""
   },
   {

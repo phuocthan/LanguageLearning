@@ -4,6 +4,7 @@ export enum EventType {
   ADD_SCORE = 'ADD_SCORE',
   END_HELP = 'END_HELP',
   MEET_END = 'MEET_END',
+  SEND_RESULT = 'SEND_RESULT',
 }
 
 @ccclass

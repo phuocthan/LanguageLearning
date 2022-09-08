@@ -24,7 +24,8 @@ export default class MainCharacter extends CharacterBase {
     }
 
     onLoad() {
-        // cc.systemEvent.on(EventType.MEET_END, this.onMeetEnd.bind(this), this)
+        super.onLoad();
+        cc.systemEvent.on(EventType.MEET_END, this.onMeetEnd.bind(this), this)
     }
 
     onMeetEnd() {

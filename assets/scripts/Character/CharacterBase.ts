@@ -37,11 +37,13 @@ export default class CharacterBase extends cc.Component {
           case cc.macro.KEY.left:
           case cc.macro.KEY.a:
               this.action_move = this.MOVE_LEFT;
+              this.node.scaleX = Math.abs(this.node.scale) * -1;
               break;
   
           case cc.macro.KEY.right:
           case cc.macro.KEY.d:
             this.action_move = this.MOVE_RIGHT;
+            this.node.scaleX = Math.abs(this.node.scale);
               break;            
   
           case cc.macro.KEY.up:
@@ -63,32 +65,32 @@ export default class CharacterBase extends cc.Component {
     waittingDialog = false;
     update (dt) {
 
-        // if ( this.waittingDialog ) {
-        //     return;
-        // }
+        if ( this.waittingDialog ) {
+            return;
+        }
         let newPosX, newPosY = 0;
         newPosX = this.node.x;
         newPosY = this.node.y;
         if (this.action_move == this.MOVE_LEFT)
         {
-            console.log("Update MOVE LEFT");
+            // console.log("Update MOVE LEFT");
             newPosX -= this.moveDistance * dt;
 
         }
         if (this.action_move == this.MOVE_RIGHT)
         {
             newPosX += this.moveDistance * dt;
-            console.log("Update MOVE MOVE_RIGHT");
+            // console.log("Update MOVE MOVE_RIGHT");
         }
         if (this.action_move == this.MOVE_UP)
         {
             newPosY += this.moveDistance * dt;
-            console.log("Update MOVE MOVE_UP");
+            // console.log("Update MOVE MOVE_UP");
         }
         if (this.action_move == this.MOVE_DOWN)
         {
             newPosY -= this.moveDistance * dt;
-            console.log("Update MOVE MOVE_DOWN");
+            // console.log("Update MOVE MOVE_DOWN");
         }
 
         newPosX = cc.misc.clampf(newPosX, -2250/2 + 50, 2250/2 - 50);

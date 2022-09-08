@@ -24,13 +24,15 @@ export default class AskForHelp extends cc.Component {
     @property(cc.Sprite)
     npcSprite: cc.Sprite = null;
 
-    onYesBtnClick() {
+    yesFnc : any;
 
+    onYesBtnClick() {
+        this.yesFnc && this.yesFnc();
     }
 
     onNoBtnClick() {
         this.node.active = false;
-        // cc.systemEvent.emit(EventType.MEET_END);
+        cc.systemEvent.emit(EventType.MEET_END);
     }
 
     start () {
@@ -47,16 +49,15 @@ export default class AskForHelp extends cc.Component {
 
     // helpString = '<color=#ffffff>Do you want to help</c><color=#0fffff> %d </color>'
 
-    show(isRedNPC) {
+    show(isRedNPC, yesFnc) {
         let helpText = this.helpString;
         helpText = helpText.replace( '%d', isRedNPC ? '<color=#ff0000><b> Red Grunt' : '<color=#0000ff> Blue Grunt');
-        // <color=#0fffff> %d </color>
-        // helpText.replace('%d', 'Red')
         this.askHelp.string = helpText;
         this.npcHelloLbl.string = isRedNPC ? this.helloRed : this.helloBlue;
         this.helloMain.string = '<color=#000000>Hello</c><color=#000000><b> ' + UserInfo.userName + '!!!</c>';
         
         this.npcSprite.spriteFrame = isRedNPC ? this.redNPC : this.blueNPC;
+        this.yesFnc = yesFnc;
         // this.askHelp.string = 
     }
 }
